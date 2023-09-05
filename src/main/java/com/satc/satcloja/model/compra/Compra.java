@@ -5,15 +5,25 @@ import com.satc.satcloja.interfaces.OperacaoFinanceira;
 import com.satc.satcloja.model.Fornecedor;
 import com.satc.satcloja.model.abstracts.EntityId;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Compra extends EntityId implements OperacaoFinanceira {
 
+    @OneToMany(mappedBy = "compra")
     private List<ItemCompra> itens = new ArrayList<>();
+
+    @Column(name = "dt_compra")
     private LocalDate dataCompra;
+
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
+
+    @Column(name = "observacao")
     private String observacao;
 
     public LocalDate getDataCompra() {

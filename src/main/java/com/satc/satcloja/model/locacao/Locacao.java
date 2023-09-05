@@ -5,14 +5,25 @@ import com.satc.satcloja.interfaces.OperacaoFinanceira;
 import com.satc.satcloja.model.Cliente;
 import com.satc.satcloja.model.abstracts.EntityId;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Locacao extends EntityId implements OperacaoFinanceira {
+
+    @OneToMany(mappedBy = "locacao")
     private List<ItemLocacao> itens = new ArrayList<>();
+
+    @Column(name = "dt_locacao")
     private LocalDate dataLocacao;
+
+    @Column(name = "dt_devolucao")
     private LocalDate dataDevolucao;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
     private String endereco;
     private String observacao;

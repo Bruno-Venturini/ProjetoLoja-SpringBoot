@@ -77,6 +77,14 @@ public class Produto extends ItemVendavel {
         this.status = status;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public Double calculaMargemDeLucro() {
         double lucro = super.getValorUnitario() - precoCompra;
         double margemLucro = (lucro / super.getValorUnitario()) * 100;

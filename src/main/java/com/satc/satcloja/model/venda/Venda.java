@@ -6,16 +6,29 @@ import com.satc.satcloja.interfaces.OperacaoFinanceira;
 import com.satc.satcloja.model.Cliente;
 import com.satc.satcloja.model.abstracts.EntityId;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Venda extends EntityId implements OperacaoFinanceira {
 
+    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
     private List<ItemVenda> itens = new ArrayList<>();
+
+    @Column(name = "data_venda")
     private LocalDate dataVenda;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "forma_pagamento")
     private FormaPagamento formaPagamento;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
+    @Column(name = "observacao")
     private String observacao;
 
     public LocalDate getDataVenda() {
@@ -55,6 +68,7 @@ public class Venda extends EntityId implements OperacaoFinanceira {
     }
 
     public void addItemVenda(ItemVenda item) {
+        item.setVenda(this);
         this.itens.add(item);
     }
 

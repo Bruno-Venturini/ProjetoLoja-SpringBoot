@@ -3,11 +3,29 @@ package com.satc.satcloja.model.venda;
 import com.satc.satcloja.model.abstracts.EntityId;
 import com.satc.satcloja.model.abstracts.ItemVendavel;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class ItemVenda extends EntityId {
+    @ManyToOne
+    @JoinColumn(name = "produto_servico_id")
     private ItemVendavel produtoServico;
+
+    @Column(name = "valor_unitario", nullable = false)
     private Double valorUnitario;
+
+    @Column(name = "quantidade", nullable = false)
     private Double quantidade;
+
+    @Column(name = "desconto", nullable = false)
     private Double desconto;
+
+    @ManyToOne
+    @JoinColumn(name = "venda_id")
+    private Venda venda;
 
     public ItemVenda(ItemVendavel produtoServico, Double valorUnitario, Double quantidade, Double desconto) {
         this.valorUnitario = valorUnitario;
@@ -46,6 +64,14 @@ public class ItemVenda extends EntityId {
 
     public void setProdutoServico(ItemVendavel produtoServico) {
         this.produtoServico = produtoServico;
+    }
+
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
     }
 
     @Override

@@ -4,22 +4,20 @@ import com.satc.satcloja.enums.Status;
 import com.satc.satcloja.exceptions.MargemLucroException;
 import com.satc.satcloja.model.abstracts.ItemVendavel;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@DiscriminatorValue(value = "produto")
 public class Produto extends ItemVendavel {
 
-    @Column(name = "nome", length = 100, nullable = false)
+    @Column(name = "nome", length = 100)
     private String nome;
 
-    @Column(name = "preco_compra", nullable = false)
+    @Column(name = "preco_compra")
     private Double precoCompra;
 
-    @Column(name = "dt_validade", nullable = false)
+    @Column(name = "dt_validade")
     private LocalDate dataValidade;
 
     @Column(name = "dt_prazo")

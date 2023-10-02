@@ -1,11 +1,7 @@
 package com.satc.satcloja.health;
 
-import com.satc.satcloja.enums.FormaPagamento;
-import com.satc.satcloja.model.Cliente;
+import com.satc.satcloja.enums.Status;
 import com.satc.satcloja.model.Produto;
-import com.satc.satcloja.model.Servico;
-import com.satc.satcloja.model.venda.ItemVenda;
-import com.satc.satcloja.model.venda.Venda;
 import com.satc.satcloja.repository.ClienteRepository;
 import com.satc.satcloja.repository.ProdutoRepository;
 import com.satc.satcloja.repository.ServicoRepository;
@@ -13,8 +9,9 @@ import com.satc.satcloja.repository.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.satc.satcloja.services.ProdutoService;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 public class HealthCheckController {
@@ -31,31 +28,34 @@ public class HealthCheckController {
     @Autowired
     public VendaRepository vendaRepository;
 
+    @Autowired
+    private ProdutoService produtoService;
+
     @GetMapping("/health")
     public String healthCheck() {
 
-        Produto produto = new Produto();
+        Produto produto = new Produto("Disponivel 1", "Disp 1");
+        Produto produto2 = new Produto("Disponivel 2", "Disp 2");
+        Produto produto3 = new Produto("Alugado 1", "Alugado 1");
 
-        produto = produtoRepository.findById(1L).orElse(new Produto());
+        produto.setStatus(Status.DISPONIVEL);
+        produto.setValorUnitario(1.00);
+        produto2.setStatus(Status.DISPONIVEL);
+        produto2.setValorUnitario(1.00);
+        produto3.setStatus(Status.ALUGADO);
+        produto3.setValorUnitario(1.00);
 
-        Servico servico = new Servico();
+        produtoRepository.save(produto);
+        produtoRepository.save(produto2);
+        produtoRepository.save(produto3);
 
-        servico = servicoRepository.findById(2L).orElse(new Servico());
+        return "Comando executado";
+    }
 
-        Venda venda = new Venda();
-        venda.setCliente(clienteRepository.findById(5L).orElse(new Cliente()));
-        venda.setDataVenda(LocalDate.now());
-        venda.setFormaPagamento(FormaPagamento.A_VISTA);
-        venda.setObservacao("Teste venda");
+    @GetMapping("/teste-produtos-alugados")
+    public String testeProdutosAlugados() {
+        List<Produto> produtosAlugados = produtoService.findProdutosAlugados();
 
-        ItemVenda itemVenda1 = new ItemVenda(produto, 1000.0, 1.0, 10.00);
-        ItemVenda itemVenda2 = new ItemVenda(servico, 120.00, 1.0, 10.00);
-
-        venda.addItemVenda(itemVenda1);
-        venda.addItemVenda(itemVenda2);
-
-        vendaRepository.save(venda);
-
-        return "Comando executado" + venda.getId();
+        return produtosAlugados.toString();
     }
 }

@@ -1,8 +1,8 @@
-az sql server create --name satc-banco-venturini --resource-group learn-ade0b01b-8c7a-45c2-a280-468bcfda9a8c --location "Brazil South" --admin-user admin_user --admin-password satc@2023
+az sql server create --name satc-banco-venturini --resource-group learn-77036e00-e551-4bc6-9edf-a682f5f223f0 --location "Brazil South" --admin-user admin_user --admin-password satc@2023
 
-az sql server firewall-rule create --resource-group learn-ade0b01b-8c7a-45c2-a280-468bcfda9a8c --server satc-banco-venturini -n AllowYourIp --start-ip-address 177.54.50.222 --end-ip-address 177.54.50.222 
+az sql server firewall-rule create --resource-group learn-77036e00-e551-4bc6-9edf-a682f5f223f0 --server satc-banco-venturini -n AllowYourIp --start-ip-address 177.54.50.222 --end-ip-address 177.54.50.222
 
-az sql db create --resource-group learn-ade0b01b-8c7a-45c2-a280-468bcfda9a8c --server satc-banco-venturini --name dados --edition GeneralPurpose --compute-model Serverless --family Gen5 --capacity 2 --zone-redundant false --backup-storage-redundancy "Local" --auto-pause-delay -1
+az sql db create --resource-group learn-77036e00-e551-4bc6-9edf-a682f5f223f0 --server satc-banco-venturini --name dados --edition GeneralPurpose --compute-model Serverless --family Gen5 --capacity 2 --zone-redundant false --backup-storage-redundancy "Local" --auto-pause-delay -1
 
 
 

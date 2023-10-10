@@ -33,29 +33,6 @@ public class HealthCheckController {
 
     @GetMapping("/health")
     public String healthCheck() {
-
-        Produto produto = new Produto("Disponivel 1", "Disp 1");
-        Produto produto2 = new Produto("Disponivel 2", "Disp 2");
-        Produto produto3 = new Produto("Alugado 1", "Alugado 1");
-
-        produto.setStatus(Status.DISPONIVEL);
-        produto.setValorUnitario(1.00);
-        produto2.setStatus(Status.DISPONIVEL);
-        produto2.setValorUnitario(1.00);
-        produto3.setStatus(Status.ALUGADO);
-        produto3.setValorUnitario(1.00);
-
-        produtoRepository.save(produto);
-        produtoRepository.save(produto2);
-        produtoRepository.save(produto3);
-
-        return "Comando executado";
-    }
-
-    @GetMapping("/teste-produtos-alugados")
-    public String testeProdutosAlugados() {
-        List<Produto> produtosAlugados = produtoService.findProdutosAlugados();
-
-        return produtosAlugados.toString();
+        return "OK!";
     }
 }
